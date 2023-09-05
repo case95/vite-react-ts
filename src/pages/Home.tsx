@@ -1,6 +1,10 @@
 import React from "react"
-import { Searchbar, Grid, GiphyCard } from "components"
+import { Searchbar, GenericGrid, GiphyCard } from "components"
 import { useSearch } from "customHooks"
+import { GiphyResponseImageData } from "models"
+
+// Instanciate Grid with inferred item type
+const GiphyGrid = GenericGrid<GiphyResponseImageData>()
 
 export const Home: React.FC = () => {
   const {
@@ -12,6 +16,22 @@ export const Home: React.FC = () => {
     results,
     isLoading,
   } = useSearch("")
+
+  const renderCard = (item: GiphyResponseImageData) => {
+    if (item === null) return null
+
+    const {
+      id,
+      title,
+      images: { preview, original, fixed_width: fixedWidth },
+    } = item
+
+    // Looks for optimized image URL in order of optimization level
+    const url =
+      preview?.mp4 ?? fixedWidth?.mp4 ?? original?.mp4 ?? "/public/404.png"
+
+    return <GiphyCard key={id} title={title} url={url} />
+  }
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center bg-slate-100 p-8">
@@ -32,10 +52,10 @@ export const Home: React.FC = () => {
         />
       </div>
       <div className="mt-8 flex w-full justify-center">
-        <Grid
+        <GiphyGrid
           results={results}
           columnExtraClass="w-[200px]"
-          renderItem={(args) => <GiphyCard key={args.id} {...args} />}
+          renderItem={renderCard}
         />
       </div>
     </div>

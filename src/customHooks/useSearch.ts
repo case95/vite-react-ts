@@ -42,11 +42,12 @@ export const useSearch = (search: string) => {
       )
 
       const parsedRes: GiphyReponse = await res.json()
+
       // prevents memory leak
       getIsMounted() && setResults(parsedRes.data)
     } catch (error) {
+      // NOTE: handle error, possibly set an error state
       console.error(error)
-      // handle error, possibly set an error state
     }
     setIsLoading(false)
   }
@@ -66,10 +67,11 @@ export const useSearch = (search: string) => {
 
         const parsedRes: GiphyReponse = await res.json()
 
+        // prevents memory leak
         getIsMounted() && setResults(parsedRes.data)
       } catch (error) {
+        // NOTE: handle error, possibly set an error state
         console.error(error)
-        // handle error, possibly set an error state
       }
       setIsLoading(false)
     }

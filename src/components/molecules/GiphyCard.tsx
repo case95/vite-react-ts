@@ -1,7 +1,7 @@
 import React from "react"
 import { GiphyFormattedData } from "models"
 
-type GiphyCardProps = GiphyFormattedData
+type GiphyCardProps = Omit<GiphyFormattedData, "id">
 
 export const GiphyCard: React.FC<GiphyCardProps> = ({ title, url }) => {
   return (
