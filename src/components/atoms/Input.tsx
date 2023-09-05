@@ -55,6 +55,7 @@ export const Input: React.FC<InputProps> = ({
           )}
           onClick={onDelete}
           disabled={disabled}
+          type="button"
         >
           <span className="sr-only">Delete</span>
           <svg

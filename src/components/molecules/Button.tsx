@@ -1,12 +1,13 @@
 import React from "react"
 import clsx from "clsx"
-import { ButtonType, SpinnerSize } from "models"
+import { ButtonVariant, SpinnerSize } from "models"
 import Spinner from "components/atoms/Spinner"
 
 type ButtonProps = {
-  onClick: () => void
   label: string
-  type?: ButtonType
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"]
+  onClick?: () => void
+  variant?: ButtonVariant
   disabled?: boolean
   isLoading?: boolean
   joinLeft?: boolean
@@ -15,14 +16,15 @@ type ButtonProps = {
 
 export const Button: React.FC<ButtonProps> = ({
   label,
+  type = "button",
   onClick,
-  type = ButtonType.DEFAULT,
+  variant = ButtonVariant.DEFAULT,
   disabled,
   isLoading,
   joinLeft,
   joinRight,
 }) => {
-  const buttonColor: string = buttonColors[type]
+  const buttonColor: string = buttonColors[variant]
 
   return (
     <button
@@ -34,6 +36,7 @@ export const Button: React.FC<ButtonProps> = ({
       )}
       onClick={onClick}
       disabled={isLoading || disabled}
+      type={type}
     >
       {isLoading ? <Spinner size={SpinnerSize.SMALL} /> : label}
     </button>
@@ -41,12 +44,12 @@ export const Button: React.FC<ButtonProps> = ({
 }
 
 type ButtonColors = {
-  [key in ButtonType]: string
+  [key in ButtonVariant]: string
 }
 
 const buttonColors: ButtonColors = {
-  [ButtonType.DANGER]:
+  [ButtonVariant.DANGER]:
     "bg-red-500 hover:bg-red-400 active:bg-red-600 text-white disabled:bg-slate-400",
-  [ButtonType.DEFAULT]:
+  [ButtonVariant.DEFAULT]:
     "bg-blue-500 hover:bg-blue-400 active:bg-blue-600 text-white disabled:bg-slate-400",
 }

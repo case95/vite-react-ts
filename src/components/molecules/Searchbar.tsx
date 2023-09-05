@@ -1,6 +1,6 @@
 import React from "react"
 import { Button, Input } from "components"
-import { ButtonType } from "models"
+import { ButtonVariant } from "models"
 
 type SearchbarProps = {
   value: string
@@ -23,23 +23,35 @@ export const Searchbar: React.FC<SearchbarProps> = ({
   onSubmit,
   isLoading,
 }) => {
-  const handleSubmit = () => onSubmit(value)
+  const validateSubmit = () => {
+    // prevents fetch on press Enter & on button click when empty value
+    value.length && onSubmit(value)
+  }
 
   const submitOnEnterPress: React.KeyboardEventHandler<HTMLFormElement> = (
     e
   ) => {
     if (e.key === "Enter") {
       e.preventDefault()
-      handleSubmit()
+      validateSubmit()
     }
   }
 
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault()
+    validateSubmit()
+  }
+
   return (
-    <form className="flex items-end" onKeyDown={submitOnEnterPress}>
+    <form
+      className="flex items-end"
+      onKeyDown={submitOnEnterPress}
+      onSubmit={handleSubmit}
+    >
       <div className="w-32">
         <Button
           label="Reset"
-          type={ButtonType.DANGER}
+          variant={ButtonVariant.DANGER}
           onClick={onReset}
           disabled={isLoading}
           isLoading={isLoading}
@@ -61,9 +73,9 @@ export const Searchbar: React.FC<SearchbarProps> = ({
         <Button
           label={submitLabel}
           joinLeft
-          onClick={handleSubmit}
-          disabled={isLoading}
+          disabled={isLoading || !value.length}
           isLoading={isLoading}
+          type="submit"
         />
       </div>
     </form>
