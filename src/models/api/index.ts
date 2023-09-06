@@ -1,3 +1,17 @@
+import { GiphyRating, GiphyURLType } from "models"
+
+export interface GiphyURLTrendingParams {
+  type: GiphyURLType.TRENDING
+  limit: number
+  offset: number
+  rating: GiphyRating
+}
+export interface GiphyURLSearchParams
+  extends Omit<GiphyURLTrendingParams, "type"> {
+  type: GiphyURLType.SEARCH
+  q: string
+}
+
 type GiphyUserData = {
   avatar_url: string
   banner_url: string
@@ -113,6 +127,12 @@ export type GiphyResponseImageData = {
   alt_text: string
 }
 
+type GiphyResponsPaginationData = {
+  offset: number
+  total_count: number
+  count: number
+}
+
 export type GiphyFormattedData = Pick<
   GiphyResponseImageData,
   "id" | "url" | "title"
@@ -120,5 +140,5 @@ export type GiphyFormattedData = Pick<
 
 export type GiphyReponse = {
   data: GiphyResponseImageData[]
-  // NOTE: the rest of the response should have been defined but rewriting the types from the site would have taken too long for the challenge suggested timeframe
+  pagination: GiphyResponsPaginationData
 }

@@ -1,15 +1,9 @@
-import { GiphyRating, GiphyURLType } from "models"
+import {
+  GiphyURLSearchParams,
+  GiphyURLTrendingParams,
+  GiphyURLType,
+} from "models"
 
-interface GiphyURLTrendingParams {
-  type: GiphyURLType.TRENDING
-  limit: number
-  offset: number
-  rating: GiphyRating
-}
-interface GiphyURLSearchParams extends Omit<GiphyURLTrendingParams, "type"> {
-  type: GiphyURLType.SEARCH
-  q: string
-}
 type GiphyURLParams = GiphyURLTrendingParams | GiphyURLSearchParams
 
 export const getGiphyURL = (args: GiphyURLParams) => {

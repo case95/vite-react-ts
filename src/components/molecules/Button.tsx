@@ -6,7 +6,7 @@ import Spinner from "components/atoms/Spinner"
 type ButtonProps = {
   label: string
   type?: React.ButtonHTMLAttributes<HTMLButtonElement>["type"]
-  onClick?: () => void
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   variant?: ButtonVariant
   disabled?: boolean
   isLoading?: boolean

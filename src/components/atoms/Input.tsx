@@ -2,10 +2,10 @@ import React from "react"
 import clsx from "clsx"
 
 type InputProps = {
-  type?: React.HTMLInputTypeAttribute
-  onChange?: (val: string) => void
-  onDelete?: () => void
   value?: React.InputHTMLAttributes<HTMLInputElement>["value"]
+  type?: React.HTMLInputTypeAttribute
+  onChange?: (val: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  onDelete?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   label?: string
   disabled?: boolean
   joinLeft?: boolean
@@ -17,9 +17,9 @@ export const Input: React.FC<InputProps> = ({
   onChange,
   onDelete,
   label,
+  disabled,
   joinLeft,
   joinRight,
-  disabled,
   ...otherProps
 }) => {
   const hasResetIcon = onDelete !== undefined
@@ -27,7 +27,7 @@ export const Input: React.FC<InputProps> = ({
   let input = (
     <input
       type={type}
-      onChange={(e) => onChange?.(e.target.value)}
+      onChange={(e) => onChange?.(e.target.value, e)}
       className={clsx(
         "flex-1 bg-white px-4 py-2 focus:outline-blue-300 active:outline-blue-500 disabled:bg-slate-200",
         !hasResetIcon && "rounded-md",
