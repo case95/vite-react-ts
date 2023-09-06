@@ -20,12 +20,16 @@ Quick project to showcase the use of:
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 
 ## Extras
+
 I was initially displaying the .gif images but after a lighthouse run I've opted to display the mp4 as it's supposed to have a lighter payload in the assets requests.
 
+### I didn't have time for many extra features but I have some comments:
 
-I didn't have time for many extra features but I have some comments:
+- Add pagination: ✅
+  > _N.B.: too many gifs playing simultaneously slow the page down. A solution might be to virtualize the list of video with packages such as react-virtualize (it would have taken too much off-scope time to implement a virtualizer)._
+- Show skeletons on load: ✅
 
-- Add pagination: GIPHY provides offset, total_count and count in the pagination data to handle subsequent cals, I've refactored useSearch to handle a *show more* call but too many gifs playing simultaneously slow the page down, so I've decided not to push it. A solution might be to virtualize the list of video with packages such as react-virtualize (it would have taken too much off-scope time to implement a virtualizer)
-- Show skeletons on load: ✅ 
-- A user should be able to save and unsave GIFs: global state managers like RTK, RQ, SWR, Zustand help with this task, otherwise saving an array of items in the local storage and querying the local storage on page load works fine too. 
-- Add an animation to the "save"  button: tailwind has some basic animations but custom ones can be created by extending the theme. For more complex ones Framer Motion comes in handy.
+- A user should be able to save and unsave GIFs: ❌
+  > _global state managers like RTK, RQ, SWR, Zustand help with this task, otherwise saving an array of items in the local storage and querying the local storage on page load works fine too._
+- Add an animation to the "save" button:
+  > _tailwind has some basic animations but custom ones can be created by extending the theme. For more complex ones Framer Motion comes in handy._

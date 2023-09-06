@@ -78,7 +78,8 @@ export const useSearch = (search: string) => {
         setIsError(false)
       } catch (error) {
         console.error(error)
-        setIsError(true)
+        // prevents the error to flash on mount in StrictMode
+        !abortController?.signal.aborted && setIsError(true)
       }
       getIsMounted() && setIsLoading(false)
     },
